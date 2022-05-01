@@ -1,5 +1,5 @@
---- a/dlls/gdi32/objects.c
-+++ b/dlls/gdi32/objects.c
+--- dlls/gdi32/objects.c
++++ dlls/gdi32/objects.c
 @@ -610,6 +610,9 @@ HBITMAP WINAPI CreateBitmap( INT width, INT height, UINT planes,
      if (!width || !height)
          return GetStockObject( STOCK_LAST + 1 ); /* default 1x1 bitmap */

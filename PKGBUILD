@@ -1,7 +1,7 @@
 # From AUR wine-staging-git (https://aur.archlinux.org/packages/wine-staging-git)
 
 pkgname=wine-staging-patched-git
-pkgver=7.7.r14.gd7507fbe
+pkgver=7.8.r2.ge534d654
 pkgrel=1
 pkgdesc='A compatibility layer for running Windows programs (staging branch, git version) with few patches'
 arch=('x86_64')
@@ -96,12 +96,16 @@ source=('git+https://github.com/wine-staging/wine-staging.git'
         '30-win32-aliases.conf'
         '01-adobe-ilau.patch'
         'wine_wayland_driver.mypatch'
+        'plasma_systray_fix.patch'
+        'childwindow-proton.patch'
         'wine-binfmt.conf')
 sha256sums=('SKIP'
             'SKIP'
             '9901a5ee619f24662b241672a7358364617227937d5f6d3126f70528ee5111e7'
             '0586f80db0476e665761895161b85d2e2126adadeaf14dcce0a2b66b2d66dbae'
             '105333e066829b6b8737332b447e908d8dcbb59c66a941a7c24a419cefd493f0'
+            '5c39c87f67d2d458343e3d6e01c35389ce629de3bf8899afba8527b515590669'
+            'c0e585595f439a5cf325fa3507d32690e0fc0dd795408a3f62e587ceba03336c'
             'b9a88735355992133a9071e092a1da9016f59d13f7b127aff11928b869f345ae')
 
 prepare() {
@@ -133,6 +137,10 @@ prepare() {
     patch -d "${srcdir}/wine" -p0 -i "${srcdir}/01-adobe-ilau.patch"
     printf '%s\n' '  :: Wayland support'
     patch -d "${srcdir}/wine" -p1 -i "${srcdir}/wine_wayland_driver.mypatch"
+    printf '%s\n' '  :: Chidlwindow support'
+    patch -d "${srcdir}/wine" -p1 -i "${srcdir}/childwindow-proton.patch"
+    printf '%s\n' '  :: Plasma Systray fix'
+    patch -d "${srcdir}/wine" -p1 -i "${srcdir}/plasma_systray_fix.patch"
 }
 
 pkgver() {

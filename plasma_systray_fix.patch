@@ -1,14 +1,13 @@
-diff --git a/dlls/winex11.drv/Makefile.in b/dlls/winex11.drv/Makefile.in
-index 747f509b44d..5a30a892add 100644
 --- a/dlls/winex11.drv/Makefile.in
 +++ b/dlls/winex11.drv/Makefile.in
 @@ -1,7 +1,7 @@
  MODULE    = winex11.drv
- IMPORTS   = uuid user32 gdi32 advapi32
+ UNIXLIB   = winex11.so
+ IMPORTS   = uuid user32 gdi32 win32u
  DELAYIMPORTS = comctl32 ole32 shell32 imm32
 -EXTRAINCL = $(X_CFLAGS)
 +EXTRAINCL = $(X_CFLAGS) $(DBUS_CFLAGS)
- EXTRALIBS = $(X_LIBS) $(X_EXTRA_LIBS)
+ EXTRALIBS = -lwin32u $(X_LIBS) $(X_EXTRA_LIBS) $(PTHREAD_LIBS) -lm
  
  C_SRCS = \
 @@ -20,6 +20,7 @@ C_SRCS = \
@@ -19,18 +18,19 @@ index 747f509b44d..5a30a892add 100644
  	vulkan.c \
  	window.c \
  	wintab.c \
-diff --git a/dlls/winex11.drv/systray.c b/dlls/winex11.drv/systray.c
-index d4262c43cfe..dae3269e999 100644
+
 --- a/dlls/winex11.drv/systray.c
 +++ b/dlls/winex11.drv/systray.c
 @@ -43,31 +43,10 @@
- #include "x11drv.h"
+
  #include "wine/list.h"
  #include "wine/debug.h"
 +#include "systray.h"
  
  WINE_DEFAULT_DEBUG_CHANNEL(systray);
  
+ BOOL show_systray = TRUE;
+
 -/* an individual systray icon */
 -struct tray_icon
 -{
@@ -56,17 +56,6 @@ index d4262c43cfe..dae3269e999 100644
  static struct list icon_list = LIST_INIT( icon_list );
  
  static const WCHAR icon_classname[] = {'_','_','w','i','n','e','x','1','1','_','t','r','a','y','_','i','c','o','n',0};
-@@ -89,10 +68,6 @@ Atom systray_atom = 0;
- #define BALLOON_CREATE_TIMER 1
- #define BALLOON_SHOW_TIMER   2
- 
--#define BALLOON_CREATE_TIMEOUT   2000
--#define BALLOON_SHOW_MIN_TIMEOUT 10000
--#define BALLOON_SHOW_MAX_TIMEOUT 30000
--
- static struct tray_icon *balloon_icon;
- static HWND balloon_window;
- static POINT balloon_pos;
 @@ -851,14 +826,35 @@ int CDECL wine_notify_icon( DWORD msg, NOTIFYICONDATAW *data )
      switch (msg)
      {

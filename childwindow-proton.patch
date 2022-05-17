@@ -854,8 +854,7 @@ index a13d0a55b76..7953ae5d925 100644
              selection_notify_event, "XFixesSelectionNotify");
      TRACE("xfixes succesully initialized\n");
  #else
-diff --git a/dlls/winex11.drv/x11drv.h b/dlls/winex11.drv/x11drv.h
-index dd7b9be0524..8dc74aa2e39 100644
+
 --- a/dlls/winex11.drv/x11drv.h
 +++ b/dlls/winex11.drv/x11drv.h
 @@ -435,6 +435,7 @@ extern BOOL show_systray DECLSPEC_HIDDEN;
@@ -871,11 +870,9 @@ index dd7b9be0524..8dc74aa2e39 100644
  extern int alloc_system_colors DECLSPEC_HIDDEN;
  extern int xrender_error_base DECLSPEC_HIDDEN;
 +extern int xfixes_event_base DECLSPEC_HIDDEN;
- extern HMODULE x11drv_module DECLSPEC_HIDDEN;
  extern char *process_name DECLSPEC_HIDDEN;
  extern Display *clipboard_display DECLSPEC_HIDDEN;
-diff --git a/dlls/winex11.drv/x11drv_main.c b/dlls/winex11.drv/x11drv_main.c
-index 32beb84a009..bf5cbaf7ef9 100644
+
 --- a/dlls/winex11.drv/x11drv_main.c
 +++ b/dlls/winex11.drv/x11drv_main.c
 @@ -46,6 +46,7 @@

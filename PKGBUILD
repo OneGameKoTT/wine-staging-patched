@@ -137,10 +137,10 @@ prepare() {
     patch -d "${srcdir}/wine" -p0 -i "${srcdir}/01-adobe-ilau.patch"
     printf '%s\n' '  :: Wayland support'
     patch -d "${srcdir}/wine" -p1 -i "${srcdir}/wine_wayland_driver.mypatch"
-    printf '%s\n' '  :: Chidlwindow support'
-    patch -d "${srcdir}/wine" -p1 -i "${srcdir}/childwindow-proton.patch"
-#     printf '%s\n' '  :: Plasma Systray fix'
-#     patch -d "${srcdir}/wine" -p1 -i "${srcdir}/plasma_systray_fix.patch"
+#     printf '%s\n' '  :: Chidlwindow support'
+#     patch -d "${srcdir}/wine" -p1 -i "${srcdir}/childwindow-proton.patch"
+    printf '%s\n' '  :: Plasma Systray fix'
+    patch -d "${srcdir}/wine" -p1 -i "${srcdir}/plasma_systray_fix.patch"
 }
 
 pkgver() {

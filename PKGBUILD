@@ -1,7 +1,7 @@
 # From AUR wine-staging-git (https://aur.archlinux.org/packages/wine-staging-git)
 
 pkgname=wine-staging-patched-git
-pkgver=7.8.r3.ge31ff0a9
+pkgver=7.10.r0.g94f00cd9
 pkgrel=1
 pkgdesc='A compatibility layer for running Windows programs (staging branch, git version) with few patches'
 arch=('x86_64')
@@ -139,8 +139,8 @@ prepare() {
     patch -d "${srcdir}/wine" -p1 -i "${srcdir}/wine_wayland_driver.mypatch"
     printf '%s\n' '  :: Chidlwindow support'
     patch -d "${srcdir}/wine" -p1 -i "${srcdir}/childwindow-proton.patch"
-    printf '%s\n' '  :: Plasma Systray fix'
-    patch -d "${srcdir}/wine" -p1 -i "${srcdir}/plasma_systray_fix.patch"
+#     printf '%s\n' '  :: Plasma Systray fix'
+#     patch -d "${srcdir}/wine" -p1 -i "${srcdir}/plasma_systray_fix.patch"
 }
 
 pkgver() {

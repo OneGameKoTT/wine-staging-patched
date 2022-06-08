@@ -97,7 +97,7 @@ source=('git+https://github.com/wine-staging/wine-staging.git'
         '01-adobe-ilau.patch'
         'wine_wayland_driver.mypatch'
         'plasma_systray_fix.patch'
-        'childwindow-proton.patch'
+        'dwmapi_EGS_fixup.mypatch'
         'wine-binfmt.conf')
 sha256sums=('SKIP'
             'SKIP'
@@ -105,7 +105,7 @@ sha256sums=('SKIP'
             '0586f80db0476e665761895161b85d2e2126adadeaf14dcce0a2b66b2d66dbae'
             '105333e066829b6b8737332b447e908d8dcbb59c66a941a7c24a419cefd493f0'
             'aa9e748fbc29f7043ed14624558622b73fd66c3dd14fc64cf5a669d48835221d'
-            '89d30cd55d04e25da945c40cbd3e1f25b1e78b0c5bc550f642475fac1b336e60'
+            'SKIP'
             'b9a88735355992133a9071e092a1da9016f59d13f7b127aff11928b869f345ae')
 
 prepare() {
@@ -137,8 +137,8 @@ prepare() {
     patch -d "${srcdir}/wine" -p0 -i "${srcdir}/01-adobe-ilau.patch"
     printf '%s\n' '  :: Wayland support'
     patch -d "${srcdir}/wine" -p1 -i "${srcdir}/wine_wayland_driver.mypatch"
-#     printf '%s\n' '  :: Chidlwindow support'
-#     patch -d "${srcdir}/wine" -p1 -i "${srcdir}/childwindow-proton.patch"
+    printf '%s\n' '  :: EGS patch'
+    patch -d "${srcdir}/wine" -p1 -i "${srcdir}/dwmapi_EGS_fixup.mypatch"
     printf '%s\n' '  :: Plasma Systray fix'
     patch -d "${srcdir}/wine" -p1 -i "${srcdir}/plasma_systray_fix.patch"
 }

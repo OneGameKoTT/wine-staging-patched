@@ -5,9 +5,9 @@
  UNIXLIB   = winex11.so
  IMPORTS   = uuid user32 gdi32 win32u
  DELAYIMPORTS = comctl32 ole32 shell32 imm32
--UNIX_CFLAGS = $(X_CFLAGS)
-+UNIX_CFLAGS = $(X_CFLAGS) $(DBUS_CFLAGS)
- UNIX_LIBS = -lwin32u $(X_LIBS) $(X_EXTRA_LIBS) $(PTHREAD_LIBS) -lm
+-UNIX_CFLAGS  = $(X_CFLAGS)
++UNIX_CFLAGS  = $(X_CFLAGS) $(DBUS_CFLAGS)
+ UNIX_LIBS    = -lwin32u $(X_LIBS) $(X_EXTRA_LIBS) $(PTHREAD_LIBS) -lm
  
  C_SRCS = \
 @@ -20,6 +20,7 @@ C_SRCS = \

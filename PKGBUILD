@@ -1,7 +1,7 @@
 # From AUR wine-staging-git (https://aur.archlinux.org/packages/wine-staging-git)
 
 pkgname=wine-staging-patched-git
-pkgver=7.10.r0.g94f00cd9
+pkgver=7.12
 pkgrel=1
 pkgdesc='A compatibility layer for running Windows programs (staging branch, git version) with few patches'
 arch=('x86_64')
@@ -97,7 +97,7 @@ source=('git+https://github.com/wine-staging/wine-staging.git'
         '01-adobe-ilau.patch'
         'wine_wayland_driver.mypatch'
         'plasma_systray_fix.patch'
-        'dwmapi_EGS_fixup.mypatch'
+        'larger_def_heap.mypatch'
         'wine-binfmt.conf')
 sha256sums=('SKIP'
             'SKIP'
@@ -105,7 +105,7 @@ sha256sums=('SKIP'
             '0586f80db0476e665761895161b85d2e2126adadeaf14dcce0a2b66b2d66dbae'
             '105333e066829b6b8737332b447e908d8dcbb59c66a941a7c24a419cefd493f0'
             'aa9e748fbc29f7043ed14624558622b73fd66c3dd14fc64cf5a669d48835221d'
-            'SKIP'
+            'e0b7ebd3b29b3bb5238d97685df7bdb417d9fb6b4460900413e904c8cc5c99d2'
             'b9a88735355992133a9071e092a1da9016f59d13f7b127aff11928b869f345ae')
 
 prepare() {
@@ -137,10 +137,12 @@ prepare() {
     patch -d "${srcdir}/wine" -p0 -i "${srcdir}/01-adobe-ilau.patch"
     printf '%s\n' '  :: Wayland support'
     patch -d "${srcdir}/wine" -p1 -i "${srcdir}/wine_wayland_driver.mypatch"
-    printf '%s\n' '  :: EGS patch'
-    patch -d "${srcdir}/wine" -p1 -i "${srcdir}/dwmapi_EGS_fixup.mypatch"
+#     printf '%s\n' '  :: EGS patch'
+#     patch -d "${srcdir}/wine" -p1 -i "${srcdir}/dwmapi_EGS_fixup.mypatch"
     printf '%s\n' '  :: Plasma Systray fix'
     patch -d "${srcdir}/wine" -p1 -i "${srcdir}/plasma_systray_fix.patch"
+    printf '%s\n' '  :: Larger heap patch'
+    patch -d "${srcdir}/wine" -p1 -i "${srcdir}/larger_def_heap.mypatch"
 }
 
 pkgver() {
